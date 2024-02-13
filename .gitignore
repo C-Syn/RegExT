@@ -1,0 +1,4 @@
+# Ignore built files
+__tests__/output
+node_modules
+lib
