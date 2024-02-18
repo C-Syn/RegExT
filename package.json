@@ -1,5 +1,5 @@
 {
-  "name": "regext",
+  "name": "regex-template",
   "version": "0.0.1",
   "description": "Transforms regular expressions into dynamic templates for flexible text generation",
   "main": "index.js",
@@ -8,11 +8,12 @@
     ""
   ],
   "scripts": {
-    "build": "tsc --build"
+    "build": "tsc --build",
+    "test": "mocha '__tests__/**/*.test.js'"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Ca5e/RegExT.git"
+    "url": "git+https://github.com/Ca5e/RegEx-Template.git"
   },
   "keywords": [
     "regex",
@@ -28,16 +29,18 @@
   "author": "Ca5e",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/Ca5e/RegExT/issues"
+    "url": "https://github.com/Ca5e/RegEx-Template/issues"
   },
-  "homepage": "https://github.com/Ca5e/RegExT#readme",
+  "homepage": "https://github.com/Ca5e/RegEx-Template#readme",
   "devDependencies": {
     "@types/node": "^20.11.17",
     "@typescript-eslint/eslint-plugin": "^7.0.1",
     "@typescript-eslint/parser": "^7.0.1",
+    "chai": "^5.1.0",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.1.3",
+    "mocha": "^10.3.0",
     "prettier": "^3.2.5",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3"

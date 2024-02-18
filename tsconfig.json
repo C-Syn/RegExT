@@ -4,10 +4,13 @@
     "module": "ES2022",
     "moduleResolution": "node",
     "lib": ["ES2022"],
+    "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "types": ["regexp-tree"]
-  }
+    "outDir": "lib",
+    "sourceMap": true
+  },
+  "include": ["src"]
 }
