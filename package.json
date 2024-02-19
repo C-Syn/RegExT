@@ -2,8 +2,7 @@
   "name": "@c-syn/regext",
   "version": "0.0.2",
   "description": "Transforms regular expressions into dynamic templates for flexible text generation.",
-  "main": "index.js",
-  "types": "index.d.ts",
+  "main": "lib/index.js",
   "scripts": {
     "build": "tsc --build",
     "test": "mocha '__tests__/**/*.test.js'"
