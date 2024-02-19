@@ -5,6 +5,8 @@
     "moduleResolution": "node",
     "lib": ["ES2022"],
     "allowJs": true,
+    "declaration": true,
+    "declarationMap": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "strict": true,
