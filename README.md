@@ -6,16 +6,16 @@ The underlying function is strongly dependent on the [regexp-tree](https://www.n
 ## Installation
 
 ```bash
-npm install regex-template
+npm install @c-syn/regext
 ```
 
 ## Usage
 
 ```typescript
-import RegExT from 'regex-template'
+import RegExT from "@c-syn/regext" 
 
 const regexp = /.../ // Your regular expression
-const type = 'Mustache' // or 'plain'
+const type = "Mustache" // or "plain"
 
 const template = new RegExT(regexp, type).template
 ```
