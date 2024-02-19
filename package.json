@@ -1,23 +1,21 @@
 {
-  "name": "regex-template",
+  "name": "@c-syn/regext",
   "version": "0.0.1",
-  "description": "Transforms regular expressions into dynamic templates for flexible text generation",
+  "description": "Transforms regular expressions into dynamic templates for flexible text generation.",
   "main": "index.js",
   "types": "index.d.ts",
-  "files": [
-    ""
-  ],
   "scripts": {
     "build": "tsc --build",
     "test": "mocha '__tests__/**/*.test.js'"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Ca5e/RegEx-Template.git"
+    "url": "git+https://github.com/C-Syn/RegExT.git"
   },
   "keywords": [
+    "regext",
     "regex",
-    "regxp",
+    "regexp",
     "transform regex",
     "regex template",
     "template",
@@ -26,12 +24,12 @@
     "handlebars"
   ],
   "type": "module",
-  "author": "Ca5e",
+  "author": "C-Syn",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/Ca5e/RegEx-Template/issues"
+    "url": "https://github.com/C-Syn/RegExT/issues"
   },
-  "homepage": "https://github.com/Ca5e/RegEx-Template#readme",
+  "homepage": "https://github.com/C-Syn/RegExT#readme",
   "devDependencies": {
     "@types/node": "^20.11.17",
     "@typescript-eslint/eslint-plugin": "^7.0.1",

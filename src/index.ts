@@ -7,7 +7,7 @@ import { Char } from "regexp-tree/ast"
  * @param regexp - The regular expression to convert
  * @param type - The type of template string to create
  */
-export default class RegExTemplate {
+export default class RegExT {
   public regexp: RegExp
   public type: "Mustache" | "plain"
   public template: string
