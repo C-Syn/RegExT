@@ -1,6 +1,6 @@
 {
   "name": "@c-syn/regext",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Transforms regular expressions into dynamic templates for flexible text generation.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
