@@ -38,14 +38,15 @@ RegExT is a class that takes two parameters: a regular expression and a type. Th
 
 The regular expression above is used to match a markdown link with a [specific format](https://tno-terminology-design.github.io/tev2-specifications/docs/specs/tools/trrt#predefined-interpreters). Depending on the specified type, the regular expression will be converted into the following templates:
 
-**Mustache**
-```typescript
-[{{showtext}}]({{#type}}{{type}}:{{/type}}{{term}}{{#trait}}#{{trait}}{{/trait}}@{{scopetag}}{{#vsntag}}:{{vsntag}}{{/vsntag}})
-```
-**Plain**
-```typescript
-[showtext](type:term#trait@scopetag:vsntag)
-```
+> **Mustache**
+> ```handlebars
+> [{{showtext}}]({{#type}}{{type}}:{{/type}}{{term}}{{#trait}}#{{trait}}{{/trait}}@{{scopetag}}{{#vsntag}}:{{vsntag}}{{/vsntag}})
+> ```
+
+> **Plain**
+> ```
+> [showtext](type:term#trait@scopetag:vsntag)
+> ```
 
 ## Use Cases
 
