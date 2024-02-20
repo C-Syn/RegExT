@@ -19,6 +19,8 @@ const type = "Mustache" // or "plain"
 
 const template = new RegExT(regexp, type).template
 ```
+> [!TIP]
+> Try this code in the [RegExT Playground](https://playcode.io/1769499). 
 
 RegExT is a class that takes two parameters: a regular expression and a type. The class has a `toString` method that returns the template string, it contains the following properties. The `convert` function that is used to generate the template string is also exposed `import { convert } from 'regex-template'`.
 
