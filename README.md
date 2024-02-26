@@ -66,14 +66,14 @@ The generated template string can also be used to quickly visualize the structur
 ## Process
 
 After the regular expression is parsed into an [abstract syntax tree (AST)](https://astexplorer.net/#/gist/4ea2b52f0e546af6fb14f9b2f5671c1c/39b55944da3e5782396ffa1fea3ba68d126cd394), the [AST](https://astexplorer.net/#/gist/4ea2b52f0e546af6fb14f9b2f5671c1c/39b55944da3e5782396ffa1fea3ba68d126cd394) is traversed to generate the template string. 
-The following checks are done on every [node](https://www.npmjs.com/package/regexp-tree#ast-nodes-specification), mostly depending on the specific type.
+The following steps are walked through on every [node](https://www.npmjs.com/package/regexp-tree#ast-nodes-specification), mostly depending on the specific type.
 
 1. Certain types of nodes are removed (i.e., [`ClassRange`](https://www.npmjs.com/package/regexp-tree#character-class-ranges), [`Disjunction`](https://www.npmjs.com/package/regexp-tree#disjunction), [`Assertion`](https://www.npmjs.com/package/regexp-tree#assertions)) as they may contain [`Char`](https://www.npmjs.com/package/regexp-tree#char) nodes that should not be included in the template string. For instance: ranges of characters that the regular expression is supposed to match are removed.
 2. [`Repetition`](https://www.npmjs.com/package/regexp-tree#quantifiers) nodes are changed to [`Alternative`](https://www.npmjs.com/package/regexp-tree#alternative) nodes if the [Quantifier's](https://www.npmjs.com/package/regexp-tree#quantifiers) `from` and `to` properties are identical. Within the changed node, the [`Repetition`](https://www.npmjs.com/package/regexp-tree#quantifiers) node is repeated `n` times.
 3. [`Group`](https://www.npmjs.com/package/regexp-tree#groups) nodes are checked for their `capturing` property. If it is set to `true`, the group is converted into a [`Char`](https://www.npmjs.com/package/regexp-tree#char) node based on the specified template string type. Either the `name`, if it exists, or the `number` property is used to identify the group in the template string.
 4. [`Alternative`](https://www.npmjs.com/package/regexp-tree#alternative) (or *concatenation*) nodes are handled according to the specified template string type. For instance, in the case of using the [`Mustache`](#usage) type, the [`Alternative`](https://www.npmjs.com/package/regexp-tree#alternative) node is wrapped in a `section` block (e.g., `{{#person}}{{person}} exists{{/person}}`).
 
-To generate the template string, every [`Char`](https://www.npmjs.com/package/regexp-tree#char) node value is concatenated into the template string.
+After these steps halve been walked through, every [`Char`](https://www.npmjs.com/package/regexp-tree#char) node its value is concatenated, resulting in the template string.
 
 ## Limitations
 
@@ -81,4 +81,4 @@ Due to the nature of the [process](#process) used to generate the template strin
 
 1. Nodes of types [`ClassRange`](https://www.npmjs.com/package/regexp-tree#character-class-ranges), [`Disjunction`](https://www.npmjs.com/package/regexp-tree#disjunction), and [`Assertion`](https://www.npmjs.com/package/regexp-tree#assertions) are removed from the [AST](https://astexplorer.net/#/gist/4ea2b52f0e546af6fb14f9b2f5671c1c/39b55944da3e5782396ffa1fea3ba68d126cd394). This means that the template string will not contain any information about these nodes.
 2. [`Backreferences`](https://www.npmjs.com/package/regexp-tree#backreferences) are not (yet) supported. This means that the template string will not contain any information about backreferences.
-3. [`Quantifiers`](https://www.npmjs.com/package/regexp-tree#quantifiers) (repetitions) are only handled if the `from` and `to` properties are identical, in this case we can assume the number of times the expressions is supposed to be repeated. If the `from` and `to` properties are different, the expression is not repeated in the template string.
+3. [`Quantifiers`](https://www.npmjs.com/package/regexp-tree#quantifiers) (repetitions) are only handled if the `from` and `to` properties are identical, in this case we can assume the number of times the expressions is supposed to be repeated. If the `from` and `to` properties are different, the corresponding expression is not repeated in the template string.
