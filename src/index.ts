@@ -2,6 +2,9 @@ import pkg from "regexp-tree"
 const { traverse, transform } = pkg
 import { Alternative, Char } from "regexp-tree/ast"
 
+const types = ["Mustache", "plain"] as const
+type Type = (typeof types)[number]
+
 /**
  * A class that represents a regular expression as a template string
  * @param regexp - The regular expression to convert
@@ -9,10 +12,10 @@ import { Alternative, Char } from "regexp-tree/ast"
  */
 export default class RegExT {
   public regexp: RegExp
-  public type: "Mustache" | "plain"
+  public type: Type
   public template: string
 
-  constructor(regexp: RegExp, type: "Mustache" | "plain" = "Mustache") {
+  constructor(regexp: RegExp, type: Type) {
     this.regexp = regexp
     this.type = type
     this.template = convert(regexp, type)
@@ -29,7 +32,10 @@ export default class RegExT {
  * @param type - The type of template string to convert to
  * @returns The template string
  */
-export function convert(regexp: RegExp, type: "Mustache" | "plain" = "Mustache") {
+export function convert(regexp: RegExp, type: Type) {
+  if (!types.includes(type)) {
+    type = "Mustache"
+  }
   const ast = transform(regexp, {
     // Remove certain types of nodes from the AST
     "*": function (path) {

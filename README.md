@@ -32,7 +32,7 @@ RegExT is a class that takes two parameters: a regular expression and a type. Th
 
 ### `type`
 
-The `type` parameter is a string that specifies the type of template string that should be generated. The following types are supported.
+The `type` parameter is a string that specifies the type of template string that should be generated. The following types are supported. If no type, or an unknown type, is specified, type is set to `Mustache`.
 
 | Type | Description |
 | --- | --- |
