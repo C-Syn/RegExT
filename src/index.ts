@@ -1,6 +1,6 @@
 import pkg from "regexp-tree"
 const { traverse, transform } = pkg
-import { Char } from "regexp-tree/ast"
+import { Alternative, Char } from "regexp-tree/ast"
 
 /**
  * A class that represents a regular expression as a template string
@@ -33,8 +33,12 @@ export function convert(regexp: RegExp, type: "Mustache" | "plain" = "Mustache")
   const ast = transform(regexp, {
     // Remove certain types of nodes from the AST
     "*": function (path) {
-      const type = path.node.type
-      if (type === "CharacterClass" || type === "Disjunction" || type === "Assertion") {
+      if (
+        path.node.type === "ClassRange" ||
+        path.node.type === "Disjunction" ||
+        path.node.type === "Assertion" ||
+        (path.node.type === "CharacterClass" && path.node.negative)
+      ) {
         path.remove()
       }
     },
@@ -42,10 +46,25 @@ export function convert(regexp: RegExp, type: "Mustache" | "plain" = "Mustache")
     Group(path) {
       const { node } = path
       if (node.capturing) {
-        if (type === "Mustache") {
-          path.replace(createCharNode(`{{${node.name || node.number}}}`))
-        } else {
-          path.replace(createCharNode(`${node.name || node.number}`))
+        switch (type) {
+          case "Mustache":
+            path.replace(createCharNode(`{{${node.name || node.number}}}`))
+            break
+          case "plain":
+            path.replace(createCharNode(`${node.name || node.number}`))
+            break
+        }
+      }
+    },
+    // Change Repetition node to Alternative node with n repetitions of the expression
+    Repetition(path) {
+      const { node } = path
+      if (node.quantifier.kind === "Range") {
+        if (node.quantifier.to === node.quantifier.from) {
+          path.replace({
+            type: "Alternative",
+            expressions: Array(node.quantifier.to).fill(node.expression)
+          } as Alternative)
         }
       }
     },
@@ -53,7 +72,7 @@ export function convert(regexp: RegExp, type: "Mustache" | "plain" = "Mustache")
     Alternative(path) {
       const { node, parentPath } = path
       if (!parentPath?.parentPath?.parentPath) {
-        return
+        return // Ignore the root node
       }
       let capturing: string | number | null = null
 
@@ -67,9 +86,11 @@ export function convert(regexp: RegExp, type: "Mustache" | "plain" = "Mustache")
         }
       }
       if (capturing) {
-        if (type === "Mustache") {
-          node.expressions.unshift(createCharNode(`{{#${capturing}}}`))
-          node.expressions.push(createCharNode(`{{/${capturing}}}`))
+        switch (type) {
+          case "Mustache":
+            node.expressions.unshift(createCharNode(`{{#${capturing}}}`))
+            node.expressions.push(createCharNode(`{{/${capturing}}}`))
+            break
         }
       }
     }
