@@ -1,6 +1,10 @@
 import { expect } from "chai"
 import RegExT from "../lib/index.js"
 
+console.log(
+  new RegExT(/^(?<country_code>\+\d{1,2}\s?)?(?<area_code>\(\d{3}\)|\d{3})[-.\s]?\d{3}[-.\s]?\d{4}$/).template
+)
+
 const regexps = [
   /(?:(?<=[^`\\])|^)\[(?=[^@\n\]]+\]\([^@)]*@[:a-z0-9_-]*\))(?<showtext>[^@\n\]]+)\]\((?:(?:(?<type>[a-z0-9_-]*):)?)(?:(?<term>[^@\n:#)]*?)?(?:#(?<trait>[^@\n:#)]*))?)?@(?<scopetag>[a-z0-9_-]*)(?::(?<vsntag>[a-z0-9_-]*))?\)/g,
   /(?:(?<=[^`\\])|^)\[(?=[^@\n\]]+?@[:a-z0-9_-]*\](?:\([#:a-z0-9_-]+\))?)(?<showtext>[^@\n\]]+?)@(?<scopetag>[a-z0-9_-]*)(?::(?<vsntag>[a-z0-9_-]*?))?\](?:\((?:(?:(?<type>[a-z0-9_-]+):)?)(?<term>[^@\n:#)]*?)(?:#(?<trait>[^@\n:#)]+?))?\))?/

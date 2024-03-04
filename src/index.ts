@@ -106,7 +106,12 @@ export function convert(regexp: RegExp, type: Type) {
   let template = ""
   traverse(ast.getAST(), {
     Char({ node }) {
-      template += node.value
+      // Ignore meta characters representing ranges
+      if (node.kind === "meta" && !node.codePoint) {
+        return
+      } else {
+        template += node.value
+      }
     }
   })
 
