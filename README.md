@@ -1,7 +1,7 @@
 # RegExp to Template Converter
 
 This package provides a class to convert regular expressions into template strings. It currently supports both a [Mustache](https://mustache.github.io/) and plain [style](#type).
-The underlying function is strongly dependent on the [regexp-tree](https://www.npmjs.com/package/regexp-tree) package, which is used to parse the regular expression into an [abstract syntax tree (AST)](https://astexplorer.net/#/gist/4ea2b52f0e546af6fb14f9b2f5671c1c/39b55944da3e5782396ffa1fea3ba68d126cd394). Its parser module is generated from the [regexp grammar](https://github.com/DmitrySoshnikov/regexp-tree/blob/master/src/parser/regexp.bnf), which is based on the regular expressions grammar used in ECMAScript. After parsing, the [AST](https://astexplorer.net/#/gist/4ea2b52f0e546af6fb14f9b2f5671c1c/39b55944da3e5782396ffa1fea3ba68d126cd394) is then traversed to generate the template string.
+The underlying function is strongly dependent on the [regexp-tree](https://www.npmjs.com/package/regexp-tree) package, which is used to parse the regular expression into an [abstract syntax tree (AST)](https://astexplorer.net/#/gist/4ea2b52f0e546af6fb14f9b2f5671c1c/32f6c6b53186e618a73edd3c51f2168c6a05a21b). Its parser module is generated from the [regexp grammar](https://github.com/DmitrySoshnikov/regexp-tree/blob/master/src/parser/regexp.bnf), which is based on the regular expressions grammar used in ECMAScript. After parsing, the [AST](https://astexplorer.net/#/gist/4ea2b52f0e546af6fb14f9b2f5671c1c/32f6c6b53186e618a73edd3c51f2168c6a05a21b) is then traversed to generate the template string.
 
 ## Installation
 
@@ -65,7 +65,7 @@ The generated template string can also be used to quickly visualize the structur
 
 ## Process
 
-After the regular expression is parsed into an [abstract syntax tree (AST)](https://astexplorer.net/#/gist/4ea2b52f0e546af6fb14f9b2f5671c1c/39b55944da3e5782396ffa1fea3ba68d126cd394), the [AST](https://astexplorer.net/#/gist/4ea2b52f0e546af6fb14f9b2f5671c1c/39b55944da3e5782396ffa1fea3ba68d126cd394) is traversed to generate the template string. 
+After the regular expression is parsed into an [abstract syntax tree (AST)](https://astexplorer.net/#/gist/4ea2b52f0e546af6fb14f9b2f5671c1c/32f6c6b53186e618a73edd3c51f2168c6a05a21b), the [AST](https://astexplorer.net/#/gist/4ea2b52f0e546af6fb14f9b2f5671c1c/32f6c6b53186e618a73edd3c51f2168c6a05a21b) is traversed to generate the template string. 
 The following steps are walked through on every [node](https://www.npmjs.com/package/regexp-tree#ast-nodes-specification), mostly depending on the specific type.
 
 1. Certain types of nodes are removed (i.e., [`ClassRange`](https://www.npmjs.com/package/regexp-tree#character-class-ranges), [`Disjunction`](https://www.npmjs.com/package/regexp-tree#disjunction), [`Assertion`](https://www.npmjs.com/package/regexp-tree#assertions)) as they may contain [`Char`](https://www.npmjs.com/package/regexp-tree#char) nodes that should not be included in the template string. For instance: ranges of characters that the regular expression is supposed to match are removed.
@@ -79,6 +79,6 @@ After these steps halve been walked through, every [`Char`](https://www.npmjs.co
 
 Due to the nature of the [process](#process) used to generate the template string, the following limitations apply.
 
-1. Nodes of types [`ClassRange`](https://www.npmjs.com/package/regexp-tree#character-class-ranges), [`Disjunction`](https://www.npmjs.com/package/regexp-tree#disjunction), and [`Assertion`](https://www.npmjs.com/package/regexp-tree#assertions) are removed from the [AST](https://astexplorer.net/#/gist/4ea2b52f0e546af6fb14f9b2f5671c1c/39b55944da3e5782396ffa1fea3ba68d126cd394). This means that the template string will not contain any information about these nodes.
+1. Nodes of types [`ClassRange`](https://www.npmjs.com/package/regexp-tree#character-class-ranges), [`Disjunction`](https://www.npmjs.com/package/regexp-tree#disjunction), and [`Assertion`](https://www.npmjs.com/package/regexp-tree#assertions) are removed from the [AST](https://astexplorer.net/#/gist/4ea2b52f0e546af6fb14f9b2f5671c1c/32f6c6b53186e618a73edd3c51f2168c6a05a21b). This means that the template string will not contain any information about these nodes.
 2. [`Backreferences`](https://www.npmjs.com/package/regexp-tree#backreferences) are not (yet) supported. This means that the template string will not contain any information about backreferences.
 3. [`Quantifiers`](https://www.npmjs.com/package/regexp-tree#quantifiers) (repetitions) are only handled if the `from` and `to` properties are identical, in this case we can assume the number of times the expressions is supposed to be repeated. If the `from` and `to` properties are different, the corresponding expression is not repeated in the template string.
