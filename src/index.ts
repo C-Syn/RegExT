@@ -43,7 +43,8 @@ export function convert(regexp: RegExp, type: Type) {
         path.node.type === "ClassRange" ||
         path.node.type === "Disjunction" ||
         path.node.type === "Assertion" ||
-        (path.node.type === "CharacterClass" && path.node.negative)
+        (path.node.type === "CharacterClass" && path.node.negative) ||
+        (path.node.type === "CharacterClass" && path.parentPath!.node.type === "Repetition")
       ) {
         path.remove()
       }
